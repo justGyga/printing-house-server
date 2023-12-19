@@ -1,8 +1,10 @@
-// import Routing from "./core/routes.js";
 import { Sequelize } from "sequelize";
 import DatabaseAdapter from "./core/database/PG-adapter.js";
+import Routing from "./core/routes.js";
 import Server from "./core/server.js";
 import SwaggerDoc from "./core/swagger.js";
+import printingHouseModels from "./modules/_database_models_initter.js";
+import UserRouter from "./modules/user/router.js";
 
 const APP_PORT = process.env.PORT || 7000;
 
@@ -17,9 +19,9 @@ new Server([
             query: { raw: true, nest: true },
             sync: { alter: true }
         })
-    ).registerModels([...MinerModels]),
+    ).registerModels([...printingHouseModels]),
     // ! Мирон, это для роутинга, оно надо
-    // new Routing([{ prefix: "", router: null }]),
+    new Routing([{ prefix: "/user", router: UserRouter }]),
     // ! Мирон, это для документации. Если тебе не надо - не прописывай new Swagger...
     new SwaggerDoc(
         {
