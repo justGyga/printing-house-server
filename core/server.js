@@ -1,8 +1,6 @@
-/* eslint-disable no-empty-function */
-/* eslint-disable lines-between-class-members */
 /* eslint-disable max-classes-per-file */
-import cors from "cors";
 import express from "express";
+import cors from "cors";
 import fileUpload from "express-fileupload";
 
 const TIMEOUT = 1000 * 60 * 10; // 10m
@@ -20,14 +18,13 @@ export class BaseModule {
 }
 
 class Server {
-    #SIZE = 2 * 1024 * 1024; // 2MB
+    #SIZE = 5 * 1024 * 1024; // 5MB
 
     constructor(PORT, services) {
         this.port = PORT;
         this.services = services;
         this.app = express();
-        this.app.use(express.json({ limit: "50mb" }));
-        this.app.use("/public", express.static("public"));
+        this.app.use(express.json());
         this.app.use(cors({ origin: true, credentials: true }));
         this.app.use(
             fileUpload({
@@ -37,6 +34,7 @@ class Server {
                 abortOnLimit: true
             })
         );
+        this.app.use(express.static("data"));
     }
 }
 
@@ -45,7 +43,6 @@ Server.prototype.initServices = async function () {
     for (const service of this.services) {
         await service._resolve(this.app);
     }
-    console.log("Services loaded");
     return Promise.resolve(this);
 };
 

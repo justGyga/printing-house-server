@@ -8,8 +8,7 @@ import UserRouter from "./modules/user/router.js";
 
 const APP_PORT = process.env.PORT || 7000;
 
-new Server([
-    // ! Мирон, это адаптер для постгры, делаешь на монге (реши что со стеком) - я дам тебе другой адаптер
+new Server(APP_PORT, [
     new DatabaseAdapter(
         new Sequelize(process.env.DB_NAME, process.env.PG_USER, process.env.PG_PASS, {
             dialect: "postgres",
@@ -20,9 +19,7 @@ new Server([
             sync: { alter: true }
         })
     ).registerModels([...printingHouseModels]),
-    // ! Мирон, это для роутинга, оно надо
     new Routing([{ prefix: "/user", router: UserRouter }]),
-    // ! Мирон, это для документации. Если тебе не надо - не прописывай new Swagger...
     new SwaggerDoc(
         {
             definition: {
