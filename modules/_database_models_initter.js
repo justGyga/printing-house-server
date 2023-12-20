@@ -1,3 +1,4 @@
-import { simpleModelInitter } from "./user/models/simple-model.js";
+import { organizationInitter } from "./organization/models/organization.js";
+import { userInitter } from "./user/models/user.js";
 
-export default [simpleModelInitter];
+export default [userInitter, organizationInitter];
