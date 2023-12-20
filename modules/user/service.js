@@ -11,7 +11,7 @@ class userService {
         }
         doc.password = await argon2.hash(doc.password);
         const newUser = await User.create(doc);
-        return TokenGuard.generate({ id: newUser.id });
+        return TokenGuard.generate(_.pick(newUser, "id", "role"));
     }
 
     async authorization(login, password) {
@@ -25,9 +25,13 @@ class userService {
         return await TokenGuard.generate(_.pick(userFindStatus, "id", "role"));
     }
 
-    async attachUserToCompany(userId, companyId) {
-        const user = await User.findByPk(userId);
-        user.companyId = companyId;
+    async attachUserToCompany(userId, companyId, role) {
+        const userFindStatus = await User.findByPk(userId);
+        if (!userFindStatus) return false;
+        userFindStatus.companyId = companyId;
+        userFindStatus.role = role;
+        await userFindStatus.save();
+        return true;
     }
 }
 

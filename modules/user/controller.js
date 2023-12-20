@@ -1,17 +1,40 @@
 import autoBind from "auto-bind";
-import SimpleService from "./service.js";
+import UserService from "./service.js";
 
 class SimpleController {
-    #simpleService;
+    #userService;
     constructor() {
         autoBind(this);
-        this.#simpleService = new SimpleService();
+        this.#userService = new UserService();
     }
 
-    async simpleController(req, res) {
+    async signUp(req, res) {
         try {
-            const result = await this.#simpleService.simpleServiceMethod(req.body.message);
-            res.status(200).json(result);
+            const token = await this.#userService.registration(req.body);
+            if (!token) return res.status(409).json({ message: "User already exists" });
+            res.status(201).json({ token });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Oops, something went wrong!" });
+        }
+    }
+
+    async signIn(req, res) {
+        try {
+            const token = await this.#userService.authorization(req.body.userId, req.body.companyId);
+            if (!token) return res.status(404).json({ message: "Login or password is not corrected" });
+            res.status(200).json({ token });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Oops, something went wrong!" });
+        }
+    }
+
+    async addWorker(req, res) {
+        try {
+            const result = await this.#userService.attachUserToCompany(req.body.userId, req.company.id, req.body.role);
+            if (!result) return res.status(404).json({ message: "User not found" });
+            res.status(202).end();
         } catch (error) {
             console.log(error.message);
             res.status(500).json({ message: "Oops, something went wrong!" });
