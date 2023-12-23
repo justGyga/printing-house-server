@@ -4,6 +4,7 @@ import Routing from "./core/routes.js";
 import Server from "./core/server.js";
 import SwaggerDoc from "./core/swagger.js";
 import printingHouseModels from "./modules/_database_models_initter.js";
+import OrganizationRouter from "./modules/organization/router.js";
 import UserRouter from "./modules/user/router.js";
 
 const APP_PORT = process.env.PORT || 7000;
@@ -19,7 +20,10 @@ new Server(APP_PORT, [
             sync: { alter: true }
         })
     ).registerModels([...printingHouseModels]),
-    new Routing([{ prefix: "/user", router: UserRouter }]),
+    new Routing([
+        { prefix: "/user", router: UserRouter },
+        { prefix: "/organization", router: OrganizationRouter }
+    ]),
     new SwaggerDoc(
         {
             definition: {

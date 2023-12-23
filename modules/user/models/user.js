@@ -31,7 +31,7 @@ export const userInitter = (sequelize) => {
                 allowNull: false
             },
             role: {
-                type: DataTypes.STRING,
+                type: DataTypes.INTEGER,
                 defaultValue: ROLE.NON_ROLE,
                 validate: { isIn: [Object.values(ROLE)] }
             }

@@ -1,4 +1,5 @@
 import { DataTypes, Model } from "sequelize";
+import { ORGANIZATION_TYPE } from "../../commons/enums/organization-type.js";
 import User from "../../user/models/user.js";
 
 export default class Organization extends Model {}
@@ -16,9 +17,9 @@ export const organizationInitter = (sequelize) => {
                 allowNull: false
             },
             type: {
-                type: DataTypes.STRING,
+                type: DataTypes.INTEGER,
                 allowNull: false,
-                validate: { isIn: [] }
+                validate: { isIn: [Object.values(ORGANIZATION_TYPE)] }
             },
             inn: {
                 type: DataTypes.STRING,
