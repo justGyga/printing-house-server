@@ -33,7 +33,7 @@ export const organizationInitter = (sequelize) => {
                 allowNull: false
             }
         },
-        { sequelize, updatedAt: false, tableName: "user" }
+        { sequelize, updatedAt: false, tableName: "organization" }
     );
     return () => {
         Organization.hasMany(User, { foreignKey: "organizationId", onDelete: "CASCADE" });

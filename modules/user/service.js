@@ -25,12 +25,12 @@ class userService {
         return await TokenGuard.generate(_.pick(userFindStatus, "id", "role"));
     }
 
-    async attachUserToCompany(userId, companyId, role) {
+    async attachUserToCompany(userId, organizationId, role) {
         const userFindStatus = await User.findByPk(userId);
         if (!userFindStatus) return false;
-        userFindStatus.companyId = companyId;
+        userFindStatus.companyId = organizationId;
         userFindStatus.role = role;
-        await userFindStatus.save();
+        await User.update({ organizationId, role }, { where: { id: userId } });
         return true;
     }
 }

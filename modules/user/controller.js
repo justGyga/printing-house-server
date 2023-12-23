@@ -1,7 +1,7 @@
 import autoBind from "auto-bind";
 import UserService from "./service.js";
 
-class SimpleController {
+class UserController {
     #userService;
     constructor() {
         autoBind(this);
@@ -21,7 +21,7 @@ class SimpleController {
 
     async signIn(req, res) {
         try {
-            const token = await this.#userService.authorization(req.body.userId, req.body.companyId);
+            const token = await this.#userService.authorization(req.body.login, req.body.password);
             if (!token) return res.status(404).json({ message: "Login or password is not corrected" });
             res.status(200).json({ token });
         } catch (error) {
@@ -32,14 +32,14 @@ class SimpleController {
 
     async addWorker(req, res) {
         try {
-            const result = await this.#userService.attachUserToCompany(req.body.userId, req.company.id, req.body.role);
+            const result = await this.#userService.attachUserToCompany(req.body.userId, req.organization.id, req.body.role);
             if (!result) return res.status(404).json({ message: "User not found" });
             res.status(202).end();
         } catch (error) {
-            console.log(error.message);
+            console.log(error);
             res.status(500).json({ message: "Oops, something went wrong!" });
         }
     }
 }
 
-export default new SimpleController();
+export default new UserController();
