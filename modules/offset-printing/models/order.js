@@ -20,14 +20,6 @@ export const offsetOrderInitter = (sequelize) => {
                 type: DataTypes.STRING,
                 allowNull: true
             },
-            circulationMain: {
-                type: DataTypes.INTEGER,
-                defaultValue: false
-            },
-            circulationAdditional: {
-                type: DataTypes.INTEGER,
-                defaultValue: false
-            },
             density: {
                 type: DataTypes.INTEGER,
                 defaultValue: false
