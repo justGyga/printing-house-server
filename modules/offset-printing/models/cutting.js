@@ -1,4 +1,5 @@
 import { DataTypes, Model } from "sequelize";
+import OffsetOrder from "./order.js";
 
 export default class CuttingOffset extends Model {}
 
@@ -25,5 +26,7 @@ export const cuttingOffsetInitter = (sequelize) => {
         },
         { sequelize, updatedAt: false, tableName: "cutting-offset" }
     );
-    return () => {};
+    return () => {
+        CuttingOffset.belongsTo(OffsetOrder, { foreignKey: "cuttingId", as: "cutting-offset-id", onDelete: "CASCADE" });
+    };
 };

@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import UltravioletPrintingObject from "./printing-object";
+import UltravioletPrintingObject from "./printing-object.js";
 
 export default class UltravioletPrintingOrder extends Model {}
 

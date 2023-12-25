@@ -1,4 +1,5 @@
 import { DataTypes, Model } from "sequelize";
+import OffsetOrder from "./order.js";
 
 export default class LaminationOffset extends Model {}
 
@@ -32,5 +33,7 @@ export const laminationOffsetInitter = (sequelize) => {
         },
         { sequelize, updatedAt: false, tableName: "lamination-offset" }
     );
-    return () => {};
+    return () => {
+        LaminationOffset.belongsTo(OffsetOrder, { foreignKey: "laminationId", as: "lamination-offset-id", onDelete: "CASCADE" });
+    };
 };

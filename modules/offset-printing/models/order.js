@@ -60,11 +60,17 @@ export const offsetOrderInitter = (sequelize) => {
         { sequelize, updatedAt: false, tableName: "offset-order" }
     );
     return () => {
-        OffsetOrder.hasOne(CuttingOffset, { foreignKey: "offsetOrderId", as: "cutting-offset-id", onDelete: "CASCADE" });
-        OffsetOrder.hasOne(EmbossingOffset, { foreignKey: "offsetOrderId", as: "embossing-offset-id", onDelete: "CASCADE" });
-        OffsetOrder.hasOne(LaminationOffset, { foreignKey: "offsetOrderId", as: "lamination-offset-id", onDelete: "CASCADE" });
-        OffsetOrder.hasOne(OffsetPolishOffset, { foreignKey: "offsetOrderId", as: "offset-polish-offset-id", onDelete: "CASCADE" });
-        OffsetOrder.hasOne(PaperOffset, { foreignKey: "offsetOrderId", as: "paper-offset-id", onDelete: "CASCADE" });
-        OffsetOrder.hasOne(VarnishingOffset, { foreignKey: "offsetOrderId", as: "varnishing-offset-id", onDelete: "CASCADE" });
+        OffsetOrder.hasMany(CuttingOffset, { foreignKey: "cuttingId", as: "cutting-offset-id", onDelete: "CASCADE" });
+        OffsetOrder.hasMany(EmbossingOffset, { foreignKey: "embossingId", as: "embossing-offset-id", onDelete: "CASCADE" });
+        OffsetOrder.hasMany(LaminationOffset, { foreignKey: "laminationId", as: "lamination-offset-id", onDelete: "CASCADE" });
+        OffsetOrder.hasMany(OffsetPolishOffset, { foreignKey: "polishId", as: "offset-polish-offset-id", onDelete: "CASCADE" });
+        OffsetOrder.hasMany(PaperOffset, { foreignKey: "paperId", as: "paper-offset-id", onDelete: "CASCADE" });
+        OffsetOrder.hasMany(VarnishingOffset, { foreignKey: "varnishingId", as: "varnishing-offset-id", onDelete: "CASCADE" });
+        // ? OffsetOrder.hasMany(CuttingOffset, { foreignKey: "offsetOrderId", as: "cutting-offset-id", onDelete: "CASCADE" });
+        // ? OffsetOrder.hasMany(EmbossingOffset, { foreignKey: "offsetOrderId", as: "embossing-offset-id", onDelete: "CASCADE" });
+        // ? OffsetOrder.hasMany(LaminationOffset, { foreignKey: "offsetOrderId", as: "lamination-offset-id", onDelete: "CASCADE" });
+        // ? OffsetOrder.hasMany(OffsetPolishOffset, { foreignKey: "offsetOrderId", as: "offset-polish-offset-id", onDelete: "CASCADE" });
+        // ? OffsetOrder.hasMany(PaperOffset, { foreignKey: "offsetOrderId", as: "paper-offset-id", onDelete: "CASCADE" });
+        // ? OffsetOrder.hasMany(VarnishingOffset, { foreignKey: "offsetOrderId", as: "varnishing-offset-id", onDelete: "CASCADE" });
     };
 };

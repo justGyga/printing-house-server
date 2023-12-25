@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import SublimationPrintingObject from "./printing-object";
+import SublimationPrintingObject from "./printing-object.js";
 
 export default class SublimationOrder extends Model {}
 

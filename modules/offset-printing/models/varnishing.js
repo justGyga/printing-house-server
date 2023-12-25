@@ -1,4 +1,5 @@
 import { DataTypes, Model } from "sequelize";
+import OffsetOrder from "./order.js";
 
 export default class VarnishingOffset extends Model {}
 
@@ -32,5 +33,7 @@ export const varnishingOffsetInitter = (sequelize) => {
         },
         { sequelize, updatedAt: false, tableName: "varnishing-offset" }
     );
-    return () => {};
+    return () => {
+        VarnishingOffset.belongsTo(OffsetOrder, { foreignKey: "varnishingId", as: "varnishing-offset-id", onDelete: "CASCADE" });
+    };
 };

@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import dtfPrintingObject from "./printing-object";
+import dtfPrintingObject from "./printing-object.js";
 
 export default class dtfPrintingOrder extends Model {}
 

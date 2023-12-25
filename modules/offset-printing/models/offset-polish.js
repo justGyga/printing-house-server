@@ -1,4 +1,5 @@
 import { DataTypes, Model } from "sequelize";
+import OffsetOrder from "./order.js";
 
 export default class OffsetPolishOffset extends Model {}
 
@@ -27,5 +28,7 @@ export const offsetPolishOffsetInitter = (sequelize) => {
         },
         { sequelize, updatedAt: false, tableName: "polish-order" }
     );
-    return () => {};
+    return () => {
+        OffsetPolishOffset.belongsTo(OffsetOrder, { foreignKey: "polishId", as: "offset-polish-offset-id", onDelete: "CASCADE" });
+    };
 };

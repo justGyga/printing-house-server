@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
-import LaminationLargeFormat from "./lamination";
 import GrommetOffset from "./grommet.js";
+import LaminationLargeFormat from "./lamination.js";
 import LargeFormatPrintingObject from "./printing-object.js";
 
 export default class LargeFormatOrder extends Model {}

@@ -1,4 +1,5 @@
 import { DataTypes, Model } from "sequelize";
+import OffsetOrder from "./order.js";
 
 export default class PaperOffset extends Model {}
 
@@ -17,5 +18,7 @@ export const paperOffsetInitter = (sequelize) => {
         },
         { sequelize, updatedAt: false, tableName: "paper-offset" }
     );
-    return () => {};
+    return () => {
+        PaperOffset.belongsTo(OffsetOrder, { foreignKey: "paperId", as: "paper-offset-id", onDelete: "CASCADE" });
+    };
 };
