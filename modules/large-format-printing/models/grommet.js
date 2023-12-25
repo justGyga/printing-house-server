@@ -1,9 +1,9 @@
 import { DataTypes, Model } from "sequelize";
 
-export default class LuversOffset extends Model {}
+export default class GrommetOffset extends Model {}
 
-export const luversOffsetInitter = (sequelize) => {
-    LuversOffset.init(
+export const grommetOffsetInitter = (sequelize) => {
+    GrommetOffset.init(
         {
             id: {
                 type: DataTypes.UUID,
@@ -27,7 +27,7 @@ export const luversOffsetInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize, updatedAt: false, tableName: "luvers-large-format" }
+        { sequelize, updatedAt: false, tableName: "grommet-large-format" }
     );
     return () => {};
 };

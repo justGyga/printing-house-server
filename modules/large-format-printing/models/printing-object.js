@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 
 export default class LargeFormatPrintingObject extends Model {}
 
-export const largeFormatInitter = (sequelize) => {
+export const largeFormatPrintingObjectInitter = (sequelize) => {
     LargeFormatPrintingObject.init(
         {
             id: {

@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import LaminationLargeFormat from "./lamination";
-import LuversOffset from "./luvers.js";
+import GrommetOffset from "./grommet.js";
 import LargeFormatPrintingObject from "./printing-object.js";
 
 export default class LargeFormatOrder extends Model {}
@@ -22,7 +22,7 @@ export const largeFormatOrderInitter = (sequelize) => {
     );
     return () => {
         LargeFormatOrder.hasMany(LargeFormatPrintingObject, { foreignKey: "objectId", onDelete: "CASCADE" });
-        LargeFormatOrder.hasMany(LuversOffset, { foreignKey: "luversId", onDelete: "CASCADE" });
+        LargeFormatOrder.hasMany(GrommetOffset, { foreignKey: "luversId", onDelete: "CASCADE" });
         LargeFormatOrder.hasMany(LaminationLargeFormat, { foreignKey: "laminationId", onDelete: "CASCADE" });
     };
 };

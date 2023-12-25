@@ -25,6 +25,10 @@ export const tempOrderInitter = (sequelize) => {
             description: {
                 type: DataTypes.STRING,
                 allowNull: true
+            },
+            date: {
+                type: DataTypes.DATEONLY,
+                defaultValue: new Date()
             }
         },
         { sequelize, updatedAt: false, tableName: "temp-order" }
