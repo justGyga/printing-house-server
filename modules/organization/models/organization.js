@@ -1,6 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import { ORGANIZATION_TYPE } from "../../commons/enums/organization-type.js";
 import User from "../../user/models/user.js";
+import Catalog from "./catalog.js";
 
 export default class Organization extends Model {}
 
@@ -34,9 +35,10 @@ export const organizationInitter = (sequelize) => {
                 allowNull: false
             }
         },
-        { sequelize,  tableName: "organization" }
+        { sequelize, tableName: "organization" }
     );
     return () => {
         Organization.hasMany(User, { foreignKey: "organizationId", onDelete: "CASCADE" });
+        Organization.hasMany(Catalog, { foreignKey: "organizationId", onDelete: "CASCADE" });
     };
 };

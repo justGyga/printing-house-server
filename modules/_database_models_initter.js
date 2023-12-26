@@ -13,6 +13,7 @@ import { largeFormatPrintingObjectInitter } from "./large-format-printing/models
 import { cuttingOffsetInitter } from "./offset-printing/models/cutting.js";
 import { embossingOffsetInitter } from "./offset-printing/models/embossing.js";
 import { laminationOffsetInitter } from "./offset-printing/models/lamination.js";
+import { offsetPolishOffsetInitter } from "./offset-printing/models/offset-polish.js";
 import { offsetOrderInitter } from "./offset-printing/models/order.js";
 import { paperOffsetInitter } from "./offset-printing/models/paper.js";
 import { varnishingOffsetInitter } from "./offset-printing/models/varnishing.js";
@@ -28,7 +29,15 @@ import { ultravioletPrintingInitter } from "./ultraviolet-printing/models/printi
 const userAndOrgModels = [organizationInitter, userInitter];
 const dtfModels = [dtfPrintingOrderInitter, dtfPrintingObjectInitter];
 const largeFormatModels = [largeFormatOrderInitter, laminationLargeFormatInitter, grommetOffsetInitter, largeFormatPrintingObjectInitter];
-const offsetModels = [cuttingOffsetInitter, embossingOffsetInitter, laminationOffsetInitter, offsetOrderInitter, paperOffsetInitter, varnishingOffsetInitter];
+const offsetModels = [
+    offsetOrderInitter,
+    offsetPolishOffsetInitter,
+    cuttingOffsetInitter,
+    embossingOffsetInitter,
+    laminationOffsetInitter,
+    paperOffsetInitter,
+    varnishingOffsetInitter
+];
 const sublimationModels = [sublimationOrderInitter, sublimationPrintingInitter];
 const ultravioletModels = [ultravioletPrintingInitter, ultravioletPrintingOrderInitter];
 

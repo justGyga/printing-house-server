@@ -28,6 +28,7 @@ class Server {
         this.app = express();
         this.app.use(express.json({ limit: "50mb" }));
         this.app.use(cors({ origin: true, credentials: true }));
+        this.app.use(express.static("resources"));
         this.app.use(
             fileUpload({
                 defCharset: "utf8",

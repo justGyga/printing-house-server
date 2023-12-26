@@ -22,35 +22,35 @@ export const offsetOrderInitter = (sequelize) => {
             },
             density: {
                 type: DataTypes.INTEGER,
-                defaultValue: false
+                allowNull: false
             },
             labelX: {
                 type: DataTypes.INTEGER,
-                defaultValue: false
+                allowNull: false
             },
             labelY: {
                 type: DataTypes.INTEGER,
-                defaultValue: false
+                allowNull: false
             },
             countPurchasedSheets: {
                 type: DataTypes.INTEGER,
-                defaultValue: false
+                allowNull: false
             },
             widthPurchasedSheets: {
                 type: DataTypes.INTEGER,
-                defaultValue: false
+                allowNull: false
             },
             heightPurchasedSheets: {
                 type: DataTypes.INTEGER,
-                defaultValue: false
+                allowNull: false
             },
             countColorsFront: {
                 type: DataTypes.INTEGER,
-                defaultValue: false
+                allowNull: false
             },
             countColorsBack: {
                 type: DataTypes.INTEGER,
-                defaultValue: false
+                allowNull: false
             },
             description: {
                 type: DataTypes.STRING,

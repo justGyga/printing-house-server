@@ -29,12 +29,12 @@ new Server(APP_PORT, [
             definition: {
                 openapi: "3.0.0",
                 info: {
-                    title: "AIRPROMAP MASTER-API SERVER",
+                    title: "domino api",
                     version: "1.0.0",
-                    description: "The REST API documentation for AIRPROMAP-Master-Server.",
+                    description: "The REST API documentation for Domino-Master-Server.",
                     contact: {
-                        name: "LeamSoftware",
-                        url: "https://soft.leam.pro"
+                        name: "TheGyga",
+                        url: "https://t.me/the_gyga"
                     }
                 },
                 servers: [{ url: process.env.APP_DOMAIN }],
