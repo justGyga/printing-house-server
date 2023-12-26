@@ -16,10 +16,6 @@ export const offsetOrderInitter = (sequelize) => {
                 defaultValue: DataTypes.UUIDV4,
                 primaryKey: true
             },
-            name: {
-                type: DataTypes.STRING,
-                allowNull: true
-            },
             density: {
                 type: DataTypes.INTEGER,
                 allowNull: false
@@ -51,10 +47,6 @@ export const offsetOrderInitter = (sequelize) => {
             countColorsBack: {
                 type: DataTypes.INTEGER,
                 allowNull: false
-            },
-            description: {
-                type: DataTypes.STRING,
-                allowNull: true
             }
         },
         { sequelize, tableName: "offset-order" }

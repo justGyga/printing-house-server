@@ -13,6 +13,10 @@ export const orderInitter = (sequelize) => {
                 defaultValue: DataTypes.UUIDV4,
                 primaryKey: true
             },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
             circulationMain: {
                 type: DataTypes.INTEGER,
                 allowNull: false
@@ -38,6 +42,10 @@ export const orderInitter = (sequelize) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 validate: { isIn: [Object.values(ORDER_TYPE)] }
+            },
+            description: {
+                type: DataTypes.STRING,
+                allowNull: true
             }
         },
         { sequelize, tableName: "printing-result-order" }
