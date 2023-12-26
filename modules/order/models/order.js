@@ -15,15 +15,15 @@ export const orderInitter = (sequelize) => {
             },
             circulationMain: {
                 type: DataTypes.INTEGER,
-                defaultValue: false
+                allowNull: false
             },
             circulationAdditional: {
                 type: DataTypes.INTEGER,
-                defaultValue: false
+                allowNull: false
             },
             date: {
                 type: DataTypes.DATEONLY,
-                defaultValue: new Date()
+                allowNull: new Date()
             },
             status: {
                 type: DataTypes.INTEGER,
@@ -36,10 +36,9 @@ export const orderInitter = (sequelize) => {
                 validate: { isIn: [Object.values(ORDER_TYPE)] }
             }
         },
-        { sequelize,  tableName: "order" }
+        { sequelize, tableName: "order" }
     );
     return () => {
-        Order.hasMany(Organization, { foreignKey: "clientId", as: "client", onDelete: "CASCADE" });
-        Order.belongsTo(Organization, { foreignKey: "executorId", as: "executor", onDelete: "CASCADE" });
+        Order.belongsTo(Organization, { foreignKey: "organizationId", onDelete: "CASCADE" });
     };
 };

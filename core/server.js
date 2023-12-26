@@ -20,7 +20,7 @@ export class BaseModule {
 }
 
 class Server {
-    #SIZE = 2 * 1024 * 1024; // 2MB
+    #SIZE = 5 * 1024 * 1024; // 5MB
 
     constructor(PORT, services) {
         this.port = PORT;
@@ -28,7 +28,6 @@ class Server {
         this.app = express();
         this.app.use(express.json({ limit: "50mb" }));
         this.app.use(cors({ origin: true, credentials: true }));
-        this.app.use(express.static("resources"));
         this.app.use(
             fileUpload({
                 defCharset: "utf8",
@@ -37,6 +36,7 @@ class Server {
                 abortOnLimit: true
             })
         );
+        this.app.use(express.static("resources"));
     }
 }
 

@@ -53,7 +53,7 @@ class OrganizationController {
     async addCatalogItem(req, res) {
         try {
             const catalogId = await this.#organizationService.addCatalogItem(req.params.id, req.files.picture, req.body);
-            if (!catalogId) return res.status(500).json({ message: "Ooops... Something went wrong" });
+            if (!catalogId) throw new Error();
             res.status(200).json({ catalogId });
         } catch (error) {
             console.log(error.message);

@@ -32,10 +32,10 @@ class OrganizationService {
         const catalogItem = await Catalog.create({ ...doc, picture: dir });
         picture.mv(`./resources${dir}`, (error) => {
             if (error) {
-                return false;
+                console.log(error.message);
             }
         });
-        return catalogItem.id;
+        return { id: catalogItem.id, url: `${process.env.APP_DOMAIN}${dir}` };
     }
 }
 
