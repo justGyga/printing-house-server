@@ -52,7 +52,7 @@ class OrganizationController {
 
     async addCatalogItem(req, res) {
         try {
-            const catalogId = await this.#organizationService.addCatalogItem(req.params.id, req.files.picture, req.body);
+            const catalogId = await this.#organizationService.addCatalogItem(req.files.picture, req.body);
             if (!catalogId) throw new Error();
             res.status(200).json({ catalogId });
         } catch (error) {

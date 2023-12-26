@@ -2,7 +2,6 @@ import { DataTypes, Model } from "sequelize";
 import { ORGANIZATION_TYPE } from "../../commons/enums/organization-type.js";
 import Order from "../../order/models/order.js";
 import User from "../../user/models/user.js";
-import Catalog from "./catalog.js";
 
 export default class Organization extends Model {}
 
@@ -40,7 +39,6 @@ export const organizationInitter = (sequelize) => {
     );
     return () => {
         Organization.hasMany(User, { foreignKey: "organizationId", onDelete: "CASCADE" });
-        Organization.hasMany(Catalog, { foreignKey: "organizationId", onDelete: "CASCADE" });
         Organization.hasMany(Order, { foreignKey: "organizationId", onDelete: "CASCADE" });
     };
 };

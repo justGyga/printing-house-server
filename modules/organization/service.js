@@ -27,8 +27,8 @@ class OrganizationService {
         return await Catalog.findAll({ where: { organizationId } });
     }
 
-    async addCatalogItem(organizationId, picture, doc) {
-        const dir = `/${organizationId}/${new Date() / 1000}.${picture.name.split(".").at(-1)}`;
+    async addCatalogItem(picture, doc) {
+        const dir = `/${new Date() / 1000}.${picture.name.split(".").at(-1)}`;
         const catalogItem = await Catalog.create({ ...doc, picture: dir });
         picture.mv(`./resources${dir}`, (error) => {
             if (error) {

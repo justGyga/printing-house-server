@@ -4,7 +4,7 @@ package-lock.json
 
 # Optional npm cache directory
 .npm
-
+resources/
 
 # IDE
 .idea
