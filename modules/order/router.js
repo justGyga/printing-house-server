@@ -11,10 +11,14 @@ const preOrderRouter = new Router();
 const resultOrderRouter = new Router();
 
 preOrderRouter.post("", TokenGuard.verify, Validator.validate(preOrderDto), OrderController.createPreOrder);
+preOrderDto.get("", TokenGuard.verify, OrderController.getAllPreOrder);
+preOrderDto.get("/:id", TokenGuard.verify, Validator.validate(uuidDto, CONTEXT.PATH), OrderController.getByIdPreOrder);
 preOrderRouter.patch("/:id", TokenGuard.verify, Validator.validate(preOrderDto), Validator.validate(uuidDto, CONTEXT.PATH), OrderController.patchPreOrder);
 preOrderRouter.delete("/:id", TokenGuard.verify, Validator.validate(uuidDto, CONTEXT.PATH), OrderController.deletePreOrder);
 
 resultOrderRouter.post("", TokenGuard.verify, Validator.validate(resultOrderDto), OrderController.createFinalOrder);
+resultOrderRouter.get("", TokenGuard.verify, OrderController.getAllFinalOrder);
+resultOrderRouter.get("/:id", TokenGuard.verify, Validator.validate(uuidDto, CONTEXT.PATH), OrderController.getByIdFinalOrder);
 resultOrderRouter.patch(
     "/:id",
     TokenGuard.verify,
