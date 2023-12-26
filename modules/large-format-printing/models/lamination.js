@@ -30,7 +30,7 @@ export const laminationLargeFormatInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize,  tableName: "lamination-large-format" }
+        { sequelize, tableName: "large-format-lamination" }
     );
     return () => {};
 };

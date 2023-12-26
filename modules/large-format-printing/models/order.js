@@ -18,7 +18,7 @@ export const largeFormatOrderInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize,  tableName: "large-format-printing-order" }
+        { sequelize, tableName: "large-format-order" }
     );
     return () => {
         LargeFormatOrder.hasMany(LargeFormatPrintingObject, { foreignKey: "objectId", onDelete: "CASCADE" });

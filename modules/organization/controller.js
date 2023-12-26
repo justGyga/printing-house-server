@@ -12,9 +12,9 @@ class OrganizationController {
     async createOrganization(req, res) {
         try {
             const [userRoleStatus, orgExistsStatus, organizationId] = await this.#organizationService.createOrganization(req.body, req.user.id);
-            if (userRoleStatus) return res.status(403).json({ message: "You are already a member of the organization" });
-            if (orgExistsStatus) return res.status(400).json({ message: "Organization already exists" });
-            res.status(200).json(organizationId);
+            if (!userRoleStatus) return res.status(403).json({ message: "You are already a member of the organization" });
+            if (!orgExistsStatus) return res.status(400).json({ message: "Organization already exists" });
+            res.status(200).json({ organizationId });
         } catch (error) {
             console.log(error.message);
             res.status(500).json({ message: "Ooops... Something went wrong" });
@@ -35,6 +35,26 @@ class OrganizationController {
         try {
             await this.#organizationService.deleteOrganization(req.organization.id);
             res.status(204).end();
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Ooops... Something went wrong" });
+        }
+    }
+
+    async getCatalog(req, res) {
+        try {
+            res.status(200).json(await this.#organizationService.getCatalog(req.params.id));
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Ooops... Something went wrong" });
+        }
+    }
+
+    async addCatalogItem(req, res) {
+        try {
+            const catalogId = await this.#organizationService.addCatalogItem(req.params.id, req.files.picture, req.body);
+            if (!catalogId) return res.status(500).json({ message: "Ooops... Something went wrong" });
+            res.status(200).json({ catalogId });
         } catch (error) {
             console.log(error.message);
             res.status(500).json({ message: "Ooops... Something went wrong" });

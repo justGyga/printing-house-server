@@ -19,7 +19,7 @@ export const ultravioletPrintingInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize,  tableName: "ultraviolet-printing-object" }
+        { sequelize, tableName: "ultraviolet-object" }
     );
     return () => {};
 };

@@ -16,7 +16,7 @@ export const ultravioletPrintingOrderInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize,  tableName: "ultraviolet-printing-ORder" }
+        { sequelize,  tableName: "ultraviolet-order" }
     );
     return () => {
         UltravioletPrintingOrder.hasMany(UltravioletPrintingObject, { foreignKey: "objectId", onDelete: "CASCADE" });

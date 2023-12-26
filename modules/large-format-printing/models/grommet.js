@@ -27,7 +27,7 @@ export const grommetOffsetInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize,  tableName: "grommet-large-format" }
+        { sequelize, tableName: "large-format-grommet" }
     );
     return () => {};
 };

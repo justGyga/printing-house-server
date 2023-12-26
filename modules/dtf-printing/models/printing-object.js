@@ -20,7 +20,7 @@ export const dtfPrintingObjectInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize,  tableName: "dtf-printing-object" }
+        { sequelize, tableName: "dtf-object" }
     );
     return () => {
         dtfPrintingObject.belongsTo(dtfPrintingOrder, { foreignKey: "orderId", onDelete: "CASCADE" });

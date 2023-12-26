@@ -1,4 +1,5 @@
 // ! User
+import { catalogInitter } from "./organization/models/catalog.js";
 import { organizationInitter } from "./organization/models/organization.js";
 import { userInitter } from "./user/models/user.js";
 // ! DTF
@@ -26,7 +27,7 @@ import { technicalOrderInitter } from "./technical-order/models/technical-order.
 import { ultravioletPrintingOrderInitter } from "./ultraviolet-printing/models/order.js";
 import { ultravioletPrintingInitter } from "./ultraviolet-printing/models/printing-object.js";
 
-const userAndOrgModels = [organizationInitter, userInitter];
+const userAndOrgModels = [organizationInitter, userInitter, catalogInitter];
 const dtfModels = [dtfPrintingOrderInitter, dtfPrintingObjectInitter];
 const largeFormatModels = [largeFormatOrderInitter, laminationLargeFormatInitter, grommetOffsetInitter, largeFormatPrintingObjectInitter];
 const offsetModels = [
