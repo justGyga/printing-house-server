@@ -49,7 +49,7 @@ class OrderService {
             }
         });
         if (!orderFindStatus) return [true, false];
-        return [true, true, orderFindStatus];
+        return [true, orderFindStatus];
     }
 
     async editPreOrder(user, id, doc) {

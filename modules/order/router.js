@@ -29,6 +29,6 @@ resultOrderRouter.patch(
 resultOrderRouter.delete("/:id", TokenGuard.verify, Validator.validate(uuidDto, CONTEXT.PATH), OrderController.deleteFinalOrder);
 
 router.use("/pre", preOrderRouter);
-router.use("/final", resultOrderRouter);
+router.use("/result", resultOrderRouter);
 
 export default router;
