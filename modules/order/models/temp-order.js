@@ -1,4 +1,5 @@
 import { DataTypes, Model } from "sequelize";
+import Organization from "../../organization/models/organization.js";
 
 export default class TempOrder extends Model {}
 
@@ -33,5 +34,7 @@ export const tempOrderInitter = (sequelize) => {
         },
         { sequelize, tableName: "temp-order" }
     );
-    return () => {};
+    return () => {
+        TempOrder.belongsTo(Organization, { foreignKey: "organizationId", onDelete: "CASCADE" });
+    };
 };

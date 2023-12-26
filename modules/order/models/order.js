@@ -27,8 +27,12 @@ export const orderInitter = (sequelize) => {
             },
             status: {
                 type: DataTypes.INTEGER,
-                allowNull: false,
+                defaultValue: 0,
                 validate: { isIn: [Object.values(ORDER_STATUS)] }
+            },
+            printingId: {
+                type: DataTypes.UUID,
+                allowNull: true
             },
             type: {
                 type: DataTypes.INTEGER,
