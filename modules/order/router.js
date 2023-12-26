@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { TokenGuard } from "../../core/token-guard";
+import { TokenGuard } from "../../core/token-guard.js";
 import { CONTEXT, Validator } from "../../core/validation.js";
 import { uuidDto } from "../commons/dtos/uuid-dto.js";
 import OrderController from "./controller.js";
@@ -11,8 +11,8 @@ const preOrderRouter = new Router();
 const resultOrderRouter = new Router();
 
 preOrderRouter.post("", TokenGuard.verify, Validator.validate(preOrderDto), OrderController.createPreOrder);
-preOrderDto.get("", TokenGuard.verify, OrderController.getAllPreOrder);
-preOrderDto.get("/:id", TokenGuard.verify, Validator.validate(uuidDto, CONTEXT.PATH), OrderController.getByIdPreOrder);
+preOrderRouter.get("", TokenGuard.verify, OrderController.getAllPreOrder);
+preOrderRouter.get("/:id", TokenGuard.verify, Validator.validate(uuidDto, CONTEXT.PATH), OrderController.getByIdPreOrder);
 preOrderRouter.patch("/:id", TokenGuard.verify, Validator.validate(preOrderDto), Validator.validate(uuidDto, CONTEXT.PATH), OrderController.patchPreOrder);
 preOrderRouter.delete("/:id", TokenGuard.verify, Validator.validate(uuidDto, CONTEXT.PATH), OrderController.deletePreOrder);
 

@@ -32,7 +32,7 @@ export const tempOrderInitter = (sequelize) => {
                 defaultValue: new Date()
             }
         },
-        { sequelize, tableName: "temp-order" }
+        { sequelize, tableName: "printing-temp-order" }
     );
     return () => {
         TempOrder.belongsTo(Organization, { foreignKey: "organizationId", onDelete: "CASCADE" });

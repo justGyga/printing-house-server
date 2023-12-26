@@ -40,7 +40,7 @@ export const orderInitter = (sequelize) => {
                 validate: { isIn: [Object.values(ORDER_TYPE)] }
             }
         },
-        { sequelize, tableName: "order" }
+        { sequelize, tableName: "printing-result-order" }
     );
     return () => {
         Order.belongsTo(Organization, { foreignKey: "organizationId", onDelete: "CASCADE" });

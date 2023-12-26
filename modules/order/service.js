@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { ROLE } from "../commons/enums/user-role.js";
 import User from "../user/models/user.js";
 import ResultOrder from "./models/order.js";
@@ -9,14 +8,14 @@ class OrderService {
         const { organizationId } = await User.findByPk(user.id);
         if (!organizationId) return false;
         const order = await PreOrder.create({ ...doc, organizationId });
-        return _.omit(order, "createdAt", "updatedAt");
+        return order.id;
     }
 
     async createResultOrder(user, doc) {
         if (user.role != ROLE.ADMIN) return false;
         const order = await ResultOrder.create(doc);
         if (doc.preOrderId) await PreOrder.destroy({ where: { organizationId: doc.preOrderId } });
-        return _.omit(order, "createdAt", "updatedAt");
+        return order.id;
     }
 
     async getAllPreOrder(user) {

@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { ORDER_TYPE } from "../../commons/enums/order-type";
+import { ORDER_TYPE } from "../../commons/enums/order-type.js";
 
 export const resultOrderDto = yup.object().shape({
     circulationMain: yup.number().integer().positive().required(),
