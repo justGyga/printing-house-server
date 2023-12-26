@@ -31,7 +31,7 @@ export const tempOrderInitter = (sequelize) => {
                 defaultValue: new Date()
             }
         },
-        { sequelize, updatedAt: false, tableName: "temp-order" }
+        { sequelize,  tableName: "temp-order" }
     );
     return () => {};
 };

@@ -37,7 +37,7 @@ export const userInitter = (sequelize) => {
                 validate: { isIn: [Object.values(ROLE)] }
             }
         },
-        { sequelize, updatedAt: false, tableName: "user" }
+        { sequelize,  tableName: "user" }
     );
     return () => {
         User.belongsTo(Organization, { foreignKey: "organizationId", onDelete: "CASCADE" });

@@ -31,9 +31,9 @@ export const laminationOffsetInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize, updatedAt: false, tableName: "lamination-offset" }
+        { sequelize, tableName: "offset-lamination" }
     );
     return () => {
-        LaminationOffset.belongsTo(OffsetOrder, { foreignKey: "laminationId", as: "lamination-offset-id", onDelete: "CASCADE" });
+        LaminationOffset.belongsTo(OffsetOrder, { foreignKey: "orderId", as: "lamination-offset", onDelete: "CASCADE" });
     };
 };

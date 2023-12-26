@@ -36,7 +36,7 @@ export const orderInitter = (sequelize) => {
                 validate: { isIn: [Object.values(ORDER_TYPE)] }
             }
         },
-        { sequelize, updatedAt: false, tableName: "order" }
+        { sequelize,  tableName: "order" }
     );
     return () => {
         Order.hasMany(Organization, { foreignKey: "clientId", as: "client", onDelete: "CASCADE" });

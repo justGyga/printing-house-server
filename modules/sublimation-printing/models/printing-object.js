@@ -19,7 +19,7 @@ export const sublimationPrintingInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize, updatedAt: false, tableName: "sublimation-printing-object" }
+        { sequelize,  tableName: "sublimation-printing-object" }
     );
     return () => {};
 };

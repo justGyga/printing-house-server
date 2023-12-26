@@ -19,7 +19,7 @@ export const largeFormatPrintingObjectInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize, updatedAt: false, tableName: "large-format-printing-object" }
+        { sequelize,  tableName: "large-format-printing-object" }
     );
     return () => {};
 };

@@ -26,9 +26,9 @@ export const offsetPolishOffsetInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize, updatedAt: false, tableName: "polish-order" }
+        { sequelize, tableName: "offset-polish" }
     );
     return () => {
-        OffsetPolishOffset.belongsTo(OffsetOrder, { foreignKey: "polishId", as: "offset-polish-offset-id", onDelete: "CASCADE" });
+        OffsetPolishOffset.belongsTo(OffsetOrder, { foreignKey: "orderId", as: "polish-offset", onDelete: "CASCADE" });
     };
 };

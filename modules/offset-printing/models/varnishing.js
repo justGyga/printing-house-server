@@ -31,9 +31,9 @@ export const varnishingOffsetInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize, updatedAt: false, tableName: "varnishing-offset" }
+        { sequelize, tableName: "offset-varnishing" }
     );
     return () => {
-        VarnishingOffset.belongsTo(OffsetOrder, { foreignKey: "varnishingId", as: "varnishing-offset-id", onDelete: "CASCADE" });
+        VarnishingOffset.belongsTo(OffsetOrder, { foreignKey: "orderId", as: "varnishing-offset", onDelete: "CASCADE" });
     };
 };

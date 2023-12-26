@@ -1,4 +1,5 @@
 import { DataTypes, Model } from "sequelize";
+import dtfPrintingOrder from "./order.js";
 
 export default class dtfPrintingObject extends Model {}
 
@@ -19,7 +20,9 @@ export const dtfPrintingObjectInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize, updatedAt: false, tableName: "dtf-printing-object" }
+        { sequelize,  tableName: "dtf-printing-object" }
     );
-    return () => {};
+    return () => {
+        dtfPrintingObject.belongsTo(dtfPrintingOrder, { foreignKey: "orderId", onDelete: "CASCADE" });
+    };
 };

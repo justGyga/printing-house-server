@@ -27,7 +27,7 @@ export const technicalOrderInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize, updatedAt: false, tableName: "technical-order" }
+        { sequelize,  tableName: "technical-order" }
     );
     return () => {};
 };

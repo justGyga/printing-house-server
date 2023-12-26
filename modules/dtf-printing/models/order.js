@@ -16,9 +16,9 @@ export const dtfPrintingOrderInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize, updatedAt: false, tableName: "dtf-printing-order" }
+        { sequelize,  tableName: "dtf-printing-order" }
     );
     return () => {
-        dtfPrintingOrder.hasMany(dtfPrintingObject, { foreignKey: "objectId", onDelete: "CASCADE" });
+        dtfPrintingOrder.hasMany(dtfPrintingObject, { foreignKey: "orderId", onDelete: "CASCADE" });
     };
 };
