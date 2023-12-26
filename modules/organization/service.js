@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { ROLE } from "../commons/enums/user-role.js";
 import User from "../user/models/user.js";
 import Catalog from "./models/catalog.js";
@@ -9,7 +10,7 @@ class OrganizationService {
         if (user.role != 4 && user.organizationId) return [false, false, false];
         if (await Organization.findOne({ where: { name: doc.name } })) return [true, false, false];
         const org = await Organization.create(doc);
-        await User.update({ organizationId: org.id, role: ROLE.ADMIN }, { where: { id: ownerId } });
+        await User.update({ organizationId: org.id, role: ROLE.DIRECTOR }, { where: { id: ownerId } });
         return [true, true, org.id];
     }
 
@@ -23,8 +24,18 @@ class OrganizationService {
         return true;
     }
 
-    async getCatalog(organizationId) {
-        return await Catalog.findAll({ where: { organizationId } });
+    async getCatalog() {
+        const catalog = await Catalog.findAll({ attributes: { exclude: ["createdAt", "updatedAt"] } });
+        return catalog.map((item) => {
+            return { ..._.omit(item, "picture"), picture: `${process.env.APP_DOMAIN}${item.picture}` };
+        });
+    }
+
+    async getCatalogItem(id) {
+        const item = await Catalog.findByPk(id);
+        if (!item) return false;
+        item.picture = `${process.env.APP_DOMAIN}${item.picture}`;
+        return _.omit(item, "createdAt", "updatedAt");
     }
 
     async addCatalogItem(picture, doc) {

@@ -43,7 +43,16 @@ class OrganizationController {
 
     async getCatalog(req, res) {
         try {
-            res.status(200).json(await this.#organizationService.getCatalog(req.params.id));
+            res.status(200).json(await this.#organizationService.getCatalog());
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Ooops... Something went wrong" });
+        }
+    }
+
+    async getCatalogItem(req, res) {
+        try {
+            res.status(200).json(await this.#organizationService.getCatalogItem(req.params.id));
         } catch (error) {
             console.log(error.message);
             res.status(500).json({ message: "Ooops... Something went wrong" });
