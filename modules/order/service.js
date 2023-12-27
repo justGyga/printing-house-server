@@ -57,6 +57,26 @@ class OrderService {
         return order;
     }
 
+    async #patchSubOrder(id, type, doc) {
+        switch (type) {
+            case ORDER_TYPE.DTF:
+                await dtfPrintingOrder.create(id);
+                break;
+            case ORDER_TYPE.LARGE_FORMAT:
+                await LargeFormatOrder.create(id);
+                break;
+            case ORDER_TYPE.OFFSET:
+                await OffsetService.patchOffsetOrder(id, doc);
+                break;
+            case ORDER_TYPE.SUBLIMATION:
+                await SublimationOrder.create(id);
+                break;
+            case ORDER_TYPE.ULTRAVIOLET:
+                await UltravioletOrder.create(id);
+                break;
+        }
+    }
+
     async createPreOrder(user, doc) {
         const { organizationId } = await User.findByPk(user.id);
         if (!organizationId) return false;
@@ -118,6 +138,8 @@ class OrderService {
 
     async editResultOrder(user, id, doc) {
         if (user.role != ROLE.ADMIN) return false;
+        const { printingId, type } = await ResultOrder.findByPk(id);
+        await this.#patchSubOrder(printingId, type, doc.subDoc);
         await ResultOrder.update(doc, { where: { id } });
         return true;
     }
