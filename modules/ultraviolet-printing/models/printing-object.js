@@ -1,4 +1,5 @@
 import { DataTypes, Model } from "sequelize";
+import UltravioletOrder from "./order.js";
 
 export default class UltravioletPrintingObject extends Model {}
 
@@ -21,5 +22,7 @@ export const ultravioletPrintingInitter = (sequelize) => {
         },
         { sequelize, tableName: "ultraviolet-object" }
     );
-    return () => {};
+    return () => {
+        UltravioletPrintingObject.hasMany(UltravioletOrder, { foreignKey: "objectId", onDelete: "CASCADE" });
+    };
 };

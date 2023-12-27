@@ -16,9 +16,9 @@ export const sublimationOrderInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize,  tableName: "sublimation-order" }
+        { sequelize, tableName: "sublimation-order" }
     );
     return () => {
-        SublimationOrder.hasMany(SublimationPrintingObject, { foreignKey: "objectId", onDelete: "CASCADE" });
+        SublimationOrder.belongsTo(SublimationPrintingObject, { foreignKey: "objectId", onDelete: "CASCADE" });
     };
 };

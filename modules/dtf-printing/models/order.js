@@ -10,15 +10,11 @@ export const dtfPrintingOrderInitter = (sequelize) => {
                 type: DataTypes.UUID,
                 defaultValue: DataTypes.UUIDV4,
                 primaryKey: true
-            },
-            description: {
-                type: DataTypes.STRING,
-                allowNull: true
             }
         },
         { sequelize, tableName: "dtf-order" }
     );
     return () => {
-        dtfPrintingOrder.hasMany(dtfPrintingObject, { foreignKey: "orderId", onDelete: "CASCADE" });
+        dtfPrintingOrder.belongsTo(dtfPrintingObject, { foreignKey: "objectId", onDelete: "CASCADE" });
     };
 };

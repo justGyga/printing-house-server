@@ -23,6 +23,6 @@ export const dtfPrintingObjectInitter = (sequelize) => {
         { sequelize, tableName: "dtf-object" }
     );
     return () => {
-        dtfPrintingObject.belongsTo(dtfPrintingOrder, { foreignKey: "orderId", onDelete: "CASCADE" });
+        dtfPrintingObject.hasMany(dtfPrintingOrder, { foreignKey: "objectId", onDelete: "CASCADE" });
     };
 };

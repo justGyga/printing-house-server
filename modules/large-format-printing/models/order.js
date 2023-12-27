@@ -21,8 +21,8 @@ export const largeFormatOrderInitter = (sequelize) => {
         { sequelize, tableName: "large-format-order" }
     );
     return () => {
-        LargeFormatOrder.hasMany(LargeFormatPrintingObject, { foreignKey: "objectId", onDelete: "CASCADE" });
-        LargeFormatOrder.hasMany(GrommetOffset, { foreignKey: "luversId", onDelete: "CASCADE" });
-        LargeFormatOrder.hasMany(LaminationLargeFormat, { foreignKey: "laminationId", onDelete: "CASCADE" });
+        LargeFormatOrder.hasMany(LargeFormatPrintingObject, { foreignKey: "orderId", onDelete: "CASCADE" });
+        LargeFormatOrder.hasMany(GrommetOffset, { foreignKey: "orderId", onDelete: "CASCADE" });
+        LargeFormatOrder.hasMany(LaminationLargeFormat, { foreignKey: "orderId", onDelete: "CASCADE" });
     };
 };

@@ -15,11 +15,11 @@ export const grommetOffsetInitter = (sequelize) => {
                 allowNull: false
             },
             size: {
-                type: DataTypes.BOOLEAN,
+                type: DataTypes.INTEGER,
                 allowNull: false
             },
             distance: {
-                type: DataTypes.BOOLEAN,
+                type: DataTypes.INTEGER,
                 allowNull: false
             },
             description: {

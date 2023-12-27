@@ -1,4 +1,5 @@
 import { DataTypes, Model } from "sequelize";
+import SublimationOrder from "./order.js";
 
 export default class SublimationPrintingObject extends Model {}
 
@@ -21,5 +22,7 @@ export const sublimationPrintingInitter = (sequelize) => {
         },
         { sequelize, tableName: "sublimation-object" }
     );
-    return () => {};
+    return () => {
+        SublimationPrintingObject.hasMany(SublimationOrder, { foreignKey: "objectId", onDelete: "CASCADE" });
+    };
 };

@@ -1,10 +1,10 @@
 import { DataTypes, Model } from "sequelize";
 import UltravioletPrintingObject from "./printing-object.js";
 
-export default class UltravioletPrintingOrder extends Model {}
+export default class UltravioletOrder extends Model {}
 
 export const ultravioletPrintingOrderInitter = (sequelize) => {
-    UltravioletPrintingOrder.init(
+    UltravioletOrder.init(
         {
             id: {
                 type: DataTypes.UUID,
@@ -16,9 +16,9 @@ export const ultravioletPrintingOrderInitter = (sequelize) => {
                 allowNull: true
             }
         },
-        { sequelize,  tableName: "ultraviolet-order" }
+        { sequelize, tableName: "ultraviolet-order" }
     );
     return () => {
-        UltravioletPrintingOrder.hasMany(UltravioletPrintingObject, { foreignKey: "objectId", onDelete: "CASCADE" });
+        UltravioletOrder.belongsTo(UltravioletPrintingObject, { foreignKey: "objectId", onDelete: "CASCADE" });
     };
 };
