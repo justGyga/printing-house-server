@@ -22,8 +22,9 @@ class OrderController {
 
     async createFinalOrder(req, res) {
         try {
-            const order = await this.#orderService.createResultOrder(req.user, req.body);
-            if (!order) return res.status(403).json({ message: "Has not access" });
+            const [error, order] = await this.#orderService.createResultOrder(req.user, req.body);
+            if (!error) return res.status(403).json({ message: "Has not access" });
+            if (!order) return res.status(404).json({ message: "Object not found" });
             res.status(201).json({ order });
         } catch (error) {
             console.log(error.message);

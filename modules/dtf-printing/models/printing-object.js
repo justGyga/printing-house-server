@@ -15,9 +15,9 @@ export const dtfPrintingObjectInitter = (sequelize) => {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            description: {
+            url: {
                 type: DataTypes.STRING,
-                allowNull: true
+                allowNull: false
             }
         },
         { sequelize, tableName: "dtf-object" }

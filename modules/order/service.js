@@ -3,11 +3,11 @@
 import _ from "lodash";
 import { ORDER_TYPE } from "../commons/enums/order-type.js";
 import { ROLE } from "../commons/enums/user-role.js";
-import dtfPrintingOrder from "../dtf-printing/models/order.js";
+import dtfService from "../dtf-printing/service.js";
 import LargeFormatOrder from "../large-format-printing/models/order.js";
 import OffsetService from "../offset-printing/service.js";
-import SublimationOrder from "../sublimation-printing/models/order.js";
-import UltravioletOrder from "../ultraviolet-printing/models/order.js";
+import SublService from "../sublimation-printing/service.js";
+import UltravioletService from "../ultraviolet-printing/service.js";
 import User from "../user/models/user.js";
 import ResultOrder from "./models/order.js";
 import PreOrder from "./models/temp-order.js";
@@ -17,7 +17,7 @@ class OrderService {
         let printingId;
         switch (type) {
             case ORDER_TYPE.DTF:
-                printingId = await dtfPrintingOrder.create(doc);
+                printingId = await dtfService.createOrder(doc.objectId);
                 break;
             case ORDER_TYPE.LARGE_FORMAT:
                 printingId = await LargeFormatOrder.create(doc);
@@ -26,10 +26,10 @@ class OrderService {
                 printingId = await OffsetService.createOffsetOrder(doc);
                 break;
             case ORDER_TYPE.SUBLIMATION:
-                printingId = await SublimationOrder.create(doc);
+                printingId = await SublService.createOrder(doc.objectId);
                 break;
             case ORDER_TYPE.ULTRAVIOLET:
-                printingId = await UltravioletOrder.create(doc);
+                printingId = await UltravioletService.createOrder(doc.objectId);
                 break;
         }
         return printingId;
@@ -39,7 +39,7 @@ class OrderService {
         let order;
         switch (type) {
             case ORDER_TYPE.DTF:
-                order = await dtfPrintingOrder.create(id);
+                order = await dtfService.getOrderById(id);
                 break;
             case ORDER_TYPE.LARGE_FORMAT:
                 order = await LargeFormatOrder.create(id);
@@ -48,10 +48,10 @@ class OrderService {
                 order = await OffsetService.getOrderById(id);
                 break;
             case ORDER_TYPE.SUBLIMATION:
-                order = await SublimationOrder.create(id);
+                order = await SublService.getOrderById(id);
                 break;
             case ORDER_TYPE.ULTRAVIOLET:
-                order = await UltravioletOrder.create(id);
+                order = await UltravioletService.getOrderById(id);
                 break;
         }
         return order;
@@ -59,20 +59,11 @@ class OrderService {
 
     async #patchSubOrder(id, type, doc) {
         switch (type) {
-            case ORDER_TYPE.DTF:
-                await dtfPrintingOrder.create(id);
-                break;
             case ORDER_TYPE.LARGE_FORMAT:
                 await LargeFormatOrder.create(id);
                 break;
             case ORDER_TYPE.OFFSET:
                 await OffsetService.patchOffsetOrder(id, doc);
-                break;
-            case ORDER_TYPE.SUBLIMATION:
-                await SublimationOrder.create(id);
-                break;
-            case ORDER_TYPE.ULTRAVIOLET:
-                await UltravioletOrder.create(id);
                 break;
         }
     }
@@ -88,8 +79,9 @@ class OrderService {
         if (user.role != ROLE.ADMIN) return false;
         const printingId = await this.#createSubTable(doc.subDoc, doc.type);
         const order = await ResultOrder.create({ ..._.omit(doc, "subDoc"), printingId });
+        if (!printingId) return [true, false];
         if (doc.preOrderId) await PreOrder.destroy({ where: { organizationId: doc.preOrderId } });
-        return order.id;
+        return [true, order.id];
     }
 
     async getAllPreOrder(user) {
@@ -156,6 +148,9 @@ class OrderService {
         if (user.role != ROLE.ADMIN) return false;
         const { printingId, type } = await ResultOrder.findByPk(id);
         if (type == ORDER_TYPE.OFFSET) await OffsetService.deleteOrderById(printingId);
+        if (type == ORDER_TYPE.DTF) await dtfService.deleteOrder(printingId);
+        if (type == ORDER_TYPE.SUBLIMATION) await SublService.deleteOrder(printingId);
+        if (type == ORDER_TYPE.ULTRAVIOLET) await UltravioletService.deleteOrder(printingId);
         await ResultOrder.destroy({ where: { id } });
         return true;
     }

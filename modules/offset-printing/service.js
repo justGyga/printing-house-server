@@ -30,6 +30,11 @@ class OffsetService {
         return order.id;
     }
 
+    async getOffsetPaper() {
+        const allPapers = await PaperOffset.findAll({ attributes: { exclude: ["createdAt", "updatedAt"] } });
+        return [...new Set(allPapers.map((item) => item.name))];
+    }
+
     static async getOrderById(id) {
         const order = await OffsetOrder.findByPk(id, {
             attributes: { exclude: ["caretedAt", "updatedAt"] },
