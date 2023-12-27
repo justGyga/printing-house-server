@@ -1,9 +1,9 @@
 import { DataTypes, Model } from "sequelize";
 
-export default class GrommetOffset extends Model {}
+export default class Grommet extends Model {}
 
-export const grommetOffsetInitter = (sequelize) => {
-    GrommetOffset.init(
+export const grommetInitter = (sequelize) => {
+    Grommet.init(
         {
             id: {
                 type: DataTypes.UUID,

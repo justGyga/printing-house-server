@@ -4,7 +4,7 @@ import _ from "lodash";
 import { ORDER_TYPE } from "../commons/enums/order-type.js";
 import { ROLE } from "../commons/enums/user-role.js";
 import dtfService from "../dtf-printing/service.js";
-import LargeFormatOrder from "../large-format-printing/models/order.js";
+import LargeFormatService from "../large-format-printing/service.js";
 import OffsetService from "../offset-printing/service.js";
 import SublService from "../sublimation-printing/service.js";
 import UltravioletService from "../ultraviolet-printing/service.js";
@@ -20,7 +20,7 @@ class OrderService {
                 printingId = await dtfService.createOrder(doc.objectId);
                 break;
             case ORDER_TYPE.LARGE_FORMAT:
-                printingId = await LargeFormatOrder.create(doc);
+                printingId = await LargeFormatService.createOrder(doc);
                 break;
             case ORDER_TYPE.OFFSET:
                 printingId = await OffsetService.createOffsetOrder(doc);
@@ -42,7 +42,7 @@ class OrderService {
                 order = await dtfService.getOrderById(id);
                 break;
             case ORDER_TYPE.LARGE_FORMAT:
-                order = await LargeFormatOrder.create(id);
+                order = await LargeFormatService.getOrder(id);
                 break;
             case ORDER_TYPE.OFFSET:
                 order = await OffsetService.getOrderById(id);
@@ -60,7 +60,7 @@ class OrderService {
     async #patchSubOrder(id, type, doc) {
         switch (type) {
             case ORDER_TYPE.LARGE_FORMAT:
-                await LargeFormatOrder.create(id);
+                await LargeFormatService.patchOrder(id);
                 break;
             case ORDER_TYPE.OFFSET:
                 await OffsetService.patchOffsetOrder(id, doc);
@@ -151,6 +151,7 @@ class OrderService {
         if (type == ORDER_TYPE.DTF) await dtfService.deleteOrder(printingId);
         if (type == ORDER_TYPE.SUBLIMATION) await SublService.deleteOrder(printingId);
         if (type == ORDER_TYPE.ULTRAVIOLET) await UltravioletService.deleteOrder(printingId);
+        if (type == ORDER_TYPE.LARGE_FORMAT) await LargeFormatService.deleteOrder(printingId);
         await ResultOrder.destroy({ where: { id } });
         return true;
     }
