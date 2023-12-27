@@ -54,6 +54,18 @@ class OrderController {
         }
     }
 
+    async getOrderStatus(req, res) {
+        try {
+            const [nonAccess, orgAccess, status] = this.#orderService.getOrderStatus(req.user, req.params.id);
+            if (!nonAccess) return res.status(403).json({ message: "Non member of organization" });
+            if (!orgAccess) return res.status(403).json({ message: "Non accessed in that company" });
+            res.status(200).json({ status });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Ooops... Something went wrong" });
+        }
+    }
+
     async getByIdPreOrder(req, res) {
         try {
             const [accessStatus, orderFindStatus] = await this.#orderService.getByIdPreOrder(req.user, req.params.id);

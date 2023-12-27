@@ -10,6 +10,8 @@ const router = new Router();
 const preOrderRouter = new Router();
 const resultOrderRouter = new Router();
 
+router.get("/status/:id", TokenGuard.verify, Validator.validate(uuidDto, CONTEXT.PATH), OrderController.getOrderStatus);
+
 preOrderRouter.post("", TokenGuard.verify, Validator.validate(preOrderDto), OrderController.createPreOrder);
 preOrderRouter.get("", TokenGuard.verify, OrderController.getAllPreOrder);
 preOrderRouter.get("/:id", TokenGuard.verify, Validator.validate(uuidDto, CONTEXT.PATH), OrderController.getByIdPreOrder);

@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 /* eslint-disable default-case */
 import _ from "lodash";
+import { ORDER_STATUS } from "../commons/enums/order-status.js";
 import { ORDER_TYPE } from "../commons/enums/order-type.js";
 import { ROLE } from "../commons/enums/user-role.js";
 import dtfService from "../dtf-printing/service.js";
@@ -118,6 +119,16 @@ class OrderService {
         orderFindStatus.orderBody = await this.#getSubOrder(orderFindStatus.printingId, orderFindStatus.type);
         delete orderFindStatus.printingId;
         return [true, orderFindStatus];
+    }
+
+    async getOrderStatus(user, id) {
+        if (user.role == ROLE.NON_ROLE) return [false, false, false];
+        const resultOrder = await ResultOrder.findByPk(id);
+        const preOrder = await PreOrder.findByPk(id);
+        const userData = await User.findByPk(user.id);
+        if (userData.organizationId != resultOrder.organizationId && resultOrder) return [true, false];
+        if (userData.organizationId != preOrder.organizationId && preOrder) return [true, true, ORDER_STATUS.PENDING];
+        return [true, true, resultOrder.status];
     }
 
     async editPreOrder(user, id, doc) {
