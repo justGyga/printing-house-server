@@ -19,6 +19,6 @@ export const paperOffsetInitter = (sequelize) => {
         { sequelize, tableName: "offset-paper" }
     );
     return () => {
-        PaperOffset.belongsTo(OffsetOrder, { foreignKey: "orderId", as: "paper-offset", onDelete: "CASCADE" });
+        PaperOffset.belongsTo(OffsetOrder, { foreignKey: "orderId", onDelete: "CASCADE" });
     };
 };

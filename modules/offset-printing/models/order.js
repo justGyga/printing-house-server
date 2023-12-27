@@ -52,11 +52,11 @@ export const offsetOrderInitter = (sequelize) => {
         { sequelize, tableName: "offset-order" }
     );
     return () => {
-        OffsetOrder.hasMany(CuttingOffset, { foreignKey: "orderId", as: "cutting-offset", onDelete: "CASCADE" });
-        OffsetOrder.hasMany(EmbossingOffset, { foreignKey: "orderId", as: "embossing-offset", onDelete: "CASCADE" });
-        OffsetOrder.hasMany(LaminationOffset, { foreignKey: "orderId", as: "lamination-offset", onDelete: "CASCADE" });
-        OffsetOrder.hasMany(OffsetPolishOffset, { foreignKey: "orderId", as: "polish-offset", onDelete: "CASCADE" });
-        OffsetOrder.hasMany(PaperOffset, { foreignKey: "orderId", as: "paper-offset", onDelete: "CASCADE" });
-        OffsetOrder.hasMany(VarnishingOffset, { foreignKey: "orderId", as: "varnishing-offset", onDelete: "CASCADE" });
+        OffsetOrder.hasMany(CuttingOffset, { foreignKey: "orderId", onDelete: "CASCADE" });
+        OffsetOrder.hasMany(EmbossingOffset, { foreignKey: "orderId", onDelete: "CASCADE" });
+        OffsetOrder.hasMany(LaminationOffset, { foreignKey: "orderId", onDelete: "CASCADE" });
+        OffsetOrder.hasMany(OffsetPolishOffset, { foreignKey: "orderId", onDelete: "CASCADE" });
+        OffsetOrder.hasMany(PaperOffset, { foreignKey: "orderId", onDelete: "CASCADE" });
+        OffsetOrder.hasMany(VarnishingOffset, { foreignKey: "orderId", onDelete: "CASCADE" });
     };
 };

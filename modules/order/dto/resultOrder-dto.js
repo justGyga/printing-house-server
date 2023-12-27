@@ -72,6 +72,7 @@ const schemaBuilder = (type, schema) => {
 
 export const resultOrderDto = yup.object().shape({
     name: yup.string().required(),
+    organizationId: yup.string().uuid().required(),
     circulationMain: yup.number().integer().positive().required(),
     circulationAdditional: yup.number().integer().positive().required(),
     type: yup.number().oneOf(Object.values(ORDER_TYPE)),

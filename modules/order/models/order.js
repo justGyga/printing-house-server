@@ -25,10 +25,6 @@ export const orderInitter = (sequelize) => {
                 type: DataTypes.INTEGER,
                 allowNull: false
             },
-            date: {
-                type: DataTypes.DATEONLY,
-                allowNull: new Date()
-            },
             status: {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,

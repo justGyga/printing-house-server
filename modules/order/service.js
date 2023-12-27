@@ -5,7 +5,7 @@ import { ORDER_TYPE } from "../commons/enums/order-type.js";
 import { ROLE } from "../commons/enums/user-role.js";
 import dtfPrintingOrder from "../dtf-printing/models/order.js";
 import LargeFormatOrder from "../large-format-printing/models/order.js";
-import OffsetOrder from "../offset-printing/models/order.js";
+import OffsetService from "../offset-printing/service.js";
 import SublimationOrder from "../sublimation-printing/models/order.js";
 import UltravioletOrder from "../ultraviolet-printing/models/order.js";
 import User from "../user/models/user.js";
@@ -23,7 +23,7 @@ class OrderService {
                 printingId = await LargeFormatOrder.create(doc);
                 break;
             case ORDER_TYPE.OFFSET:
-                printingId = await OffsetOrder.create(doc);
+                printingId = await OffsetService.createOffsetOrder(doc);
                 break;
             case ORDER_TYPE.SUBLIMATION:
                 printingId = await SublimationOrder.create(doc);
@@ -35,6 +35,28 @@ class OrderService {
         return printingId;
     }
 
+    async #getSubOrder(id, type) {
+        let order;
+        switch (type) {
+            case ORDER_TYPE.DTF:
+                order = await dtfPrintingOrder.create(id);
+                break;
+            case ORDER_TYPE.LARGE_FORMAT:
+                order = await LargeFormatOrder.create(id);
+                break;
+            case ORDER_TYPE.OFFSET:
+                order = await OffsetService.getOrderById(id);
+                break;
+            case ORDER_TYPE.SUBLIMATION:
+                order = await SublimationOrder.create(id);
+                break;
+            case ORDER_TYPE.ULTRAVIOLET:
+                order = await UltravioletOrder.create(id);
+                break;
+        }
+        return order;
+    }
+
     async createPreOrder(user, doc) {
         const { organizationId } = await User.findByPk(user.id);
         if (!organizationId) return false;
@@ -44,7 +66,7 @@ class OrderService {
 
     async createResultOrder(user, doc) {
         if (user.role != ROLE.ADMIN) return false;
-        const printingId = this.#createSubTable(doc.subDoc);
+        const printingId = await this.#createSubTable(doc.subDoc, doc.type);
         const order = await ResultOrder.create({ ..._.omit(doc, "subDoc"), printingId });
         if (doc.preOrderId) await PreOrder.destroy({ where: { organizationId: doc.preOrderId } });
         return order.id;
@@ -66,7 +88,7 @@ class OrderService {
         if (!organizationId) return [false, false];
         const orderFindStatus = await PreOrder.findByPk(id, {
             attributes: {
-                exclude: ["createdAt", "updatedAt"]
+                exclude: ["updatedAt"]
             }
         });
         if (!orderFindStatus) return [true, false];
@@ -77,10 +99,12 @@ class OrderService {
         if (user.role != ROLE.ADMIN) return [false, false];
         const orderFindStatus = await ResultOrder.findByPk(id, {
             attributes: {
-                exclude: ["createdAt", "updatedAt"]
+                exclude: ["updatedAt"]
             }
         });
         if (!orderFindStatus) return [true, false];
+        orderFindStatus.orderBody = await this.#getSubOrder(orderFindStatus.printingId, orderFindStatus.type);
+        delete orderFindStatus.printingId;
         return [true, orderFindStatus];
     }
 
@@ -108,6 +132,8 @@ class OrderService {
 
     async deleteResultOrder(user, id) {
         if (user.role != ROLE.ADMIN) return false;
+        const { printingId, type } = await ResultOrder.findByPk(id);
+        if (type == ORDER_TYPE.OFFSET) await OffsetService.deleteOrderById(printingId);
         await ResultOrder.destroy({ where: { id } });
         return true;
     }

@@ -19,6 +19,6 @@ export const embossingOffsetInitter = (sequelize) => {
         { sequelize, tableName: "offset-embossing" }
     );
     return () => {
-        EmbossingOffset.belongsTo(OffsetOrder, { foreignKey: "orderId", as: "embossing-offset", onDelete: "CASCADE" });
+        EmbossingOffset.belongsTo(OffsetOrder, { foreignKey: "orderId", onDelete: "CASCADE" });
     };
 };

@@ -27,6 +27,6 @@ export const cuttingOffsetInitter = (sequelize) => {
         { sequelize, tableName: "offset-cutting" }
     );
     return () => {
-        CuttingOffset.belongsTo(OffsetOrder, { foreignKey: "orderId", as: "cutting-offset", onDelete: "CASCADE" });
+        CuttingOffset.belongsTo(OffsetOrder, { foreignKey: "orderId", onDelete: "CASCADE" });
     };
 };
