@@ -39,6 +39,14 @@ class OrganizationService {
         return _.omit(item, "createdAt", "updatedAt");
     }
 
+    async editCatalogItem(doc, id) {
+        await Catalog.update(doc, { where: { id } });
+    }
+
+    async deleteCatalogItem(id) {
+        await Catalog.destroy({ where: { id } });
+    }
+
     async addCatalogItem(picture, doc) {
         const dir = `/${new Date() / 1000}.${picture.name.split(".").at(-1)}`;
         const catalogItem = await Catalog.create({ ...doc, picture: dir });

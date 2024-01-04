@@ -70,6 +70,26 @@ class OrganizationController {
         }
     }
 
+    async patchCatalogItem(req, res) {
+        try {
+            await this.#organizationService.editCatalogItem(req.body, req.params.id);
+            res.status(200).json({ message: "Patched" });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Ooops... Something went wrong" });
+        }
+    }
+
+    async deleteCatalogItem(req, res) {
+        try {
+            await this.#organizationService.deleteCatalogItem(req.params.id);
+            res.status(200).json({ message: "Patched" });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Ooops... Something went wrong" });
+        }
+    }
+
     async patchOrganization(req, res) {
         try {
             await this.#organizationService.editOrganizationData(req.body, req.params.id);

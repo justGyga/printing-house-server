@@ -5,7 +5,8 @@ import Server from "./core/server.js";
 import printingHouseModels from "./modules/_database_models_initter.js";
 import DTFRouter from "./modules/dtf-printing/router.js";
 import OrderRouter from "./modules/order/router.js";
-import OrganizationRouter from "./modules/organization/router.js";
+import CatalogRouter from "./modules/organization/catalog-router.js";
+import OrganizationRouter from "./modules/organization/organization-router.js";
 import SublimationRouter from "./modules/sublimation-printing/router.js";
 import UltraVioletRouter from "./modules/ultraviolet-printing/router.js";
 import UserRouter from "./modules/user/router.js";
@@ -25,8 +26,9 @@ new Server(APP_PORT, [
     ).registerModels([...printingHouseModels]),
     new Routing([
         { prefix: "/user", router: UserRouter },
-        { prefix: "/organization", router: OrganizationRouter },
+        { prefix: "/catalog", router: CatalogRouter },
         { prefix: "/order", router: OrderRouter },
+        { prefix: "/organization", router: OrganizationRouter },
         { prefix: "/dtf/object", router: DTFRouter },
         { prefix: "/ultraviolet/object", router: UltraVioletRouter },
         { prefix: "/sublimation/object", router: SublimationRouter }
