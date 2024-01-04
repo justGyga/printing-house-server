@@ -66,6 +66,16 @@ class OrderController {
         }
     }
 
+    async patchOrderStatus(req, res) {
+        try {
+            await this.#orderService.editOrderStatus(req.params.id, req.body.status);
+            res.status(200).json({ message: "Pathced" });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Ooops... Something went wrong" });
+        }
+    }
+
     async getByIdPreOrder(req, res) {
         try {
             const [accessStatus, orderFindStatus] = await this.#orderService.getByIdPreOrder(req.user, req.params.id);
@@ -127,6 +137,16 @@ class OrderController {
         try {
             const orderDeleteStatus = await this.#orderService.deleteResultOrder(req.user, req.params.id);
             if (!orderDeleteStatus) return res.status(403).json({ message: "Has not access" });
+            res.status(204).end();
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Ooops... Something went wrong" });
+        }
+    }
+
+    async deletePrintingObject(req, res) {
+        try {
+            await this.#orderService.deletePrintingObject(req.params.id);
             res.status(204).end();
         } catch (error) {
             console.log(error.message);

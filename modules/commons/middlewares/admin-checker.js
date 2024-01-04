@@ -13,5 +13,13 @@ export const checkAccessRight = async (req, res, next) => {
     if (user.role == ROLE.NON_ROLE && !user.organizationId) {
         return res.status(403).json({ message: "You have not rights by that company" });
     }
+    req.user.organizationId = user.organizationId;
+    next();
+};
+
+export const checkOrgAccess = async (req, res, next) => {
+    if (req.params.id != req.user.organizationId) {
+        return res.status(403).json({ message: "You have not rights by that company" });
+    }
     next();
 };

@@ -24,6 +24,7 @@ class OrganizationService {
         return true;
     }
 
+    // TODO: ADD PAGINATION
     async getCatalog() {
         const catalog = await Catalog.findAll({ attributes: { exclude: ["createdAt", "updatedAt"] } });
         return catalog.map((item) => {
@@ -38,6 +39,14 @@ class OrganizationService {
         return _.omit(item, "createdAt", "updatedAt");
     }
 
+    async editCatalogItem(doc, id) {
+        await Catalog.update(doc, { where: { id } });
+    }
+
+    async deleteCatalogItem(id) {
+        await Catalog.destroy({ where: { id } });
+    }
+
     async addCatalogItem(picture, doc) {
         const dir = `/${new Date() / 1000}.${picture.name.split(".").at(-1)}`;
         const catalogItem = await Catalog.create({ ...doc, picture: dir });
@@ -47,6 +56,14 @@ class OrganizationService {
             }
         });
         return { id: catalogItem.id, url: `${process.env.APP_DOMAIN}${dir}` };
+    }
+
+    async editOrganizationData(doc, id) {
+        await Organization.update(doc, { where: { id } });
+    }
+
+    async getOrganizationManagers(organizationId) {
+        return await User.findAll({ where: { organizationId, role: ROLE.MANAGER } });
     }
 }
 

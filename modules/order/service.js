@@ -4,10 +4,15 @@ import _ from "lodash";
 import { ORDER_STATUS } from "../commons/enums/order-status.js";
 import { ORDER_TYPE } from "../commons/enums/order-type.js";
 import { ROLE } from "../commons/enums/user-role.js";
+import dtfPrintingObject from "../dtf-printing/models/printing-object.js";
 import dtfService from "../dtf-printing/service.js";
+import LargeFormatPrintingObject from "../large-format-printing/models/printing-object.js";
 import LargeFormatService from "../large-format-printing/service.js";
+import PaperOffset from "../offset-printing/models/paper.js";
 import OffsetService from "../offset-printing/service.js";
+import SublimationPrintingObject from "../sublimation-printing/models/printing-object.js";
 import SublService from "../sublimation-printing/service.js";
+import UltravioletPrintingObject from "../ultraviolet-printing/models/printing-object.js";
 import UltravioletService from "../ultraviolet-printing/service.js";
 import User from "../user/models/user.js";
 import ResultOrder from "./models/order.js";
@@ -131,6 +136,10 @@ class OrderService {
         return [true, true, resultOrder.status];
     }
 
+    async editOrderStatus(id, status) {
+        await ResultOrder.update(status, { where: { id } });
+    }
+
     async editPreOrder(user, id, doc) {
         const order = await PreOrder.findByPk(id);
         const { organizationId } = await User.findByPk(user.id);
@@ -165,6 +174,14 @@ class OrderService {
         if (type == ORDER_TYPE.LARGE_FORMAT) await LargeFormatService.deleteOrder(printingId);
         await ResultOrder.destroy({ where: { id } });
         return true;
+    }
+
+    async deletePrintingObject(id) {
+        await dtfPrintingObject.destroy({ where: { id } });
+        await LargeFormatPrintingObject.destroy({ where: { id } });
+        await PaperOffset.destroy({ where: { id } });
+        await SublimationPrintingObject.destroy({ where: { id } });
+        await UltravioletPrintingObject.destroy({ where: { id } });
     }
 }
 
