@@ -11,6 +11,7 @@ import { newOrganization } from "./dto/post-new-organization.js";
 const router = new Router();
 
 router.post("", TokenGuard.verify, Validator.validate(newOrganization), OrganizationController.createOrganization);
+router.get("/managers/:id", Validator.validate(uuidDto, CONTEXT.PATH), OrganizationController.getOrgManagers);
 router.get("/all", Validator.validate(organizationType, CONTEXT.QUERY), OrganizationController.getAllCompanies);
 router.patch(
     "/:id",
@@ -22,6 +23,5 @@ router.patch(
     OrganizationController.patchOrganization
 );
 router.delete("", TokenGuard.verify, checkAdminAccess, OrganizationController.removeOrganization);
-router.get("/managers/:id", Validator.validate(uuidDto, CONTEXT.PATH), OrganizationController.getOrgManagers);
 
 export default router;
