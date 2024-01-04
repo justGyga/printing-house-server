@@ -24,6 +24,7 @@ class OrganizationService {
         return true;
     }
 
+    // TODO: ADD PAGINATION
     async getCatalog() {
         const catalog = await Catalog.findAll({ attributes: { exclude: ["createdAt", "updatedAt"] } });
         return catalog.map((item) => {
@@ -47,6 +48,10 @@ class OrganizationService {
             }
         });
         return { id: catalogItem.id, url: `${process.env.APP_DOMAIN}${dir}` };
+    }
+
+    async editOrganizationData(doc, id) {
+        await Organization.update(doc, { where: { id } });
     }
 }
 

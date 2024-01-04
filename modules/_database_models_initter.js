@@ -6,7 +6,7 @@ import { userInitter } from "./user/models/user.js";
 import { dtfPrintingOrderInitter } from "./dtf-printing/models/order.js";
 import { dtfPrintingObjectInitter } from "./dtf-printing/models/printing-object.js";
 // ! Large format
-import { grommetOffsetInitter } from "./large-format-printing/models/grommet.js";
+import { grommetInitter } from "./large-format-printing/models/grommet.js";
 import { laminationLargeFormatInitter } from "./large-format-printing/models/lamination.js";
 import { largeFormatOrderInitter } from "./large-format-printing/models/order.js";
 import { largeFormatPrintingObjectInitter } from "./large-format-printing/models/printing-object.js";
@@ -32,7 +32,7 @@ import { tempOrderInitter } from "./order/models/temp-order.js";
 
 const userAndOrgModels = [organizationInitter, userInitter, catalogInitter];
 const dtfModels = [dtfPrintingOrderInitter, dtfPrintingObjectInitter];
-const largeFormatModels = [largeFormatOrderInitter, laminationLargeFormatInitter, grommetOffsetInitter, largeFormatPrintingObjectInitter];
+const largeFormatModels = [largeFormatOrderInitter, laminationLargeFormatInitter, grommetInitter, largeFormatPrintingObjectInitter];
 const offsetModels = [
     offsetOrderInitter,
     offsetPolishOffsetInitter,

@@ -69,6 +69,16 @@ class OrganizationController {
             res.status(500).json({ message: "Ooops... Something went wrong" });
         }
     }
+
+    async patchOrganization(req, res) {
+        try {
+            await this.#organizationService.editOrganizationData(req.body, req.params.id);
+            res.status(200).json({ message: "Patched" });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Ooops... Something went wrong" });
+        }
+    }
 }
 
 export default new OrganizationController();
