@@ -61,6 +61,10 @@ class OrganizationService {
     async editOrganizationData(doc, id) {
         await Organization.update(doc, { where: { id } });
     }
+
+    async getOrganizationManagers(organizationId) {
+        return await User.findAll({ where: { organizationId, role: ROLE.MANAGER } });
+    }
 }
 
 export default OrganizationService;

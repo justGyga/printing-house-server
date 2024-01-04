@@ -99,6 +99,15 @@ class OrganizationController {
             res.status(500).json({ message: "Ooops... Something went wrong" });
         }
     }
+
+    async getOrgManagers(req, res) {
+        try {
+            res.status(200).json(await this.#organizationService.getOrganizationManagers(req.params.id));
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Ooops... Something went wrong" });
+        }
+    }
 }
 
 export default new OrganizationController();

@@ -22,5 +22,6 @@ router.patch(
     OrganizationController.patchOrganization
 );
 router.delete("", TokenGuard.verify, checkAdminAccess, OrganizationController.removeOrganization);
+router.get("/managers/:id", Validator.validate(uuidDto, CONTEXT.PATH), OrganizationController.getOrgManagers);
 
 export default router;
