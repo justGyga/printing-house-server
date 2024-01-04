@@ -23,3 +23,5 @@ export const checkOrgAccess = async (req, res, next) => {
     }
     next();
 };
+
+export const TOAccessCheck = async (req, res, next) => {};

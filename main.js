@@ -25,13 +25,13 @@ new Server(APP_PORT, [
         })
     ).registerModels([...printingHouseModels]),
     new Routing([
+        { prefix: "/dtf/object", router: DTFRouter },
         { prefix: "/user", router: UserRouter },
         { prefix: "/catalog", router: CatalogRouter },
         { prefix: "/order", router: OrderRouter },
         { prefix: "/organization", router: OrganizationRouter },
-        { prefix: "/dtf/object", router: DTFRouter },
-        { prefix: "/ultraviolet/object", router: UltraVioletRouter },
-        { prefix: "/sublimation/object", router: SublimationRouter }
+        { prefix: "/sublimation/object", router: SublimationRouter },
+        { prefix: "/ultraviolet/object", router: UltraVioletRouter }
     ])
 ])
     .initServices()

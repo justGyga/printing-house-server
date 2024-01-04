@@ -21,8 +21,6 @@ import { varnishingOffsetInitter } from "./offset-printing/models/varnishing.js"
 // ! Sublimation
 import { sublimationOrderInitter } from "./sublimation-printing/models/order.js";
 import { sublimationPrintingInitter } from "./sublimation-printing/models/printing-object.js";
-// ! Technical order
-import { technicalOrderInitter } from "./technical-order/models/technical-order.js";
 // ! Ultraviolet
 import { ultravioletPrintingOrderInitter } from "./ultraviolet-printing/models/order.js";
 import { ultravioletPrintingInitter } from "./ultraviolet-printing/models/printing-object.js";
@@ -46,4 +44,4 @@ const sublimationModels = [sublimationOrderInitter, sublimationPrintingInitter];
 const ultravioletModels = [ultravioletPrintingInitter, ultravioletPrintingOrderInitter];
 const ordersModels = [orderInitter, tempOrderInitter];
 
-export default [ordersModels, userAndOrgModels, dtfModels, largeFormatModels, offsetModels, sublimationModels, technicalOrderInitter, ultravioletModels].flat();
+export default [ordersModels, userAndOrgModels, dtfModels, largeFormatModels, offsetModels, sublimationModels, ultravioletModels].flat();
